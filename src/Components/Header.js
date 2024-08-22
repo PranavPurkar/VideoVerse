@@ -1,11 +1,18 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { toggleMenu } from '../utils/appSlice'
 
 const Header = () => {
+
+   const dispatch = useDispatch();
+  const toggleMenuHandler = () => {
+     dispatch(toggleMenu());
+  }
   return (
     <div className='grid grid-flow-col p-2 m-2 shadow-lg'>
         <div className='flex col-span-1'>
-            <img className='h-12 '
-            alt='menu logo' 
+            <img className='h-12  cursor-pointer' onClick={() => toggleMenuHandler()}
+            alt='menu logo'  
             src="https://static.vecteezy.com/system/resources/thumbnails/001/500/312/small_2x/bullet-menu-icon-free-vector.jpg"
             />
             <img className='h-16 -mt-2'
@@ -15,7 +22,7 @@ const Header = () => {
         </div>
         <div className='col-span-10 mt-4'>
              <input className='w-1/2 px-36 py-1 border border-black rounded-l-full' type="text" placeholder="which video do you want to watch?"/>
-             <button className='border border-black rounded-r-full px-4 py-1 bg-gray-200 text-black '>🔍</button>
+             <button className='hover:bg-green-300 border border-black rounded-r-full px-4 py-1 bg-gray-200 text-black '>🔍</button>
         </div>
         <div className='col-span-1'>
             <img className='h-14 rounded-lg'
