@@ -1,1 +1,2 @@
-1) search for useSearchparams
+1. search for useSearchparams.
+2. concept of Debouncing.
