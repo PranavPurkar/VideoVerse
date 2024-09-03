@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toggleMenu } from '../utils/appSlice'
 import { YOUTUBE_SEARCH_API } from '../utils/constants'
+import { cacheResults } from '../utils/searchSlice'
 
 const Header = () => {
 
    const [searchQuery,setsearchQuery] = useState("");
    const [suggestions,setSuggestions] = useState([]);
    const [showsuggestions,setShowsuggestions] = useState(false);
+   const dispatch = useDispatch();
+
+   const searchCache = useSelector((store) => store.search);
 
    useEffect(() => {
-      const timer = setTimeout(()=> getSearchSuggestions(), 200);
+      const timer = setTimeout(()=>
+      {
+        if(searchCache[searchQuery]){
+          setSuggestions(searchCache[searchQuery]);
+        }
+        else{
+          getSearchSuggestions();
+        }
+      }, 200);
 
       return () => {
         clearTimeout(timer);
       }
-
    },[searchQuery]);
 
    const getSearchSuggestions = async () => {
@@ -23,9 +34,12 @@ const Header = () => {
      const json = await data.json();
     //  console.log(json[1]);
     setSuggestions(json[1]);
-   }
 
-   const dispatch = useDispatch();
+      dispatch(
+        cacheResults({
+          [searchQuery]: json[1],
+        }));
+   };
   const toggleMenuHandler = () => {
      dispatch(toggleMenu());
   }
