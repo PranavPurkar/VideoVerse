@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleMenu } from '../utils/appSlice'
-import { YOUTUBE_SEARCH_API } from '../utils/constants'
+import { VIDEO_VERSE_LOGO, YOUTUBE_SEARCH_API } from '../utils/constants'
 import { cacheResults } from '../utils/searchSlice'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
 
@@ -43,6 +44,8 @@ const Header = () => {
   const toggleMenuHandler = () => {
      dispatch(toggleMenu());
   }
+
+
   return (
     <div className='grid grid-flow-col p-2 m-2 shadow-lg'>
        <div className='flex col-span-1'>
@@ -50,10 +53,10 @@ const Header = () => {
             alt='menu logo'  
             src="https://static.vecteezy.com/system/resources/thumbnails/001/500/312/small_2x/bullet-menu-icon-free-vector.jpg"
             />
-            <img className='h-16 -mt-2'
+             <a href="/"><img className='h-16 -mt-2 cursor-pointer' 
             alt="logo" 
-            src="https://www.finsmes.com/wp-content/uploads/2022/04/Videoverse-Logo_Final-09.jpeg"
-            />
+            src= {VIDEO_VERSE_LOGO}
+           /></a>
         </div>
         <div className='col-span-10 mt-4'>
           <div>
